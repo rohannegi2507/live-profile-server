@@ -11,7 +11,7 @@ export const createUser = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { name, email, age, phone } = req.body;
+    const { email} = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
@@ -23,12 +23,7 @@ export const createUser = async (
       return;
     }
 
-    const user = await User.create({
-      name,
-      email,
-      age,
-      phone
-    });
+    const user = await User.create(req.body);
 
     res.status(201).json({
       success: true,
